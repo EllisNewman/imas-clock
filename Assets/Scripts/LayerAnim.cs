@@ -25,8 +25,8 @@ public class LayerAnim : MonoBehaviour
     private delegate void delegateAnim();
     private delegateAnim[] delegateAnimList = new delegateAnim[4];
     private string clockStr;
-    private int listCounter = -1;
-    private int secondCounter = -1;
+    private int listCounter = 0;
+    private int secondCounter = 0;
     private bool isShowcasing = false;
 
     void Start()
@@ -52,14 +52,6 @@ public class LayerAnim : MonoBehaviour
         // todo : 需对应暂停后继续时时间错位问题。判断条件改为clock click？
         if (clockStr != clockObject.GetParsedText())
         {
-            if(listCounter == -1)
-            {
-                listCounter++;
-                clockStr = clockObject.GetParsedText();
-                StartCoroutine(setTitleAcvitity());
-                return;
-            }
-
             delegateAnimList[listCounter < 0 ? 0 : listCounter]();
 
             listCounter++;
@@ -68,14 +60,14 @@ public class LayerAnim : MonoBehaviour
                 listCounter = 0;
             }
 
-            // 设置选项：图片展示启用时
+            // 设置选项：[图片展示]启用时
             if (isShowcaseSetOn)
             {
                 secondCounter++;
 
-                if (secondCounter >= 5)
+                if (secondCounter > 5)
                 {
-                    secondCounter = 0;
+                    secondCounter = 1;
                     isShowcasing = !isShowcasing;
                     SetShowCase(isShowcasing);
                 }
@@ -115,12 +107,6 @@ public class LayerAnim : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         showcase.transform.SetAsFirstSibling();
-    }
-
-    private IEnumerator setTitleAcvitity()
-    {
-        yield return new WaitForSeconds(1.9f);
-        TitleObject.SetActive(false);
     }
 
     private void Anim1()
