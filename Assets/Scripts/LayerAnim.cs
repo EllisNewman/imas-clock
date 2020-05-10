@@ -12,6 +12,7 @@ public class LayerAnim : MonoBehaviour
     public GameObject imageObject;
     public TextMeshProUGUI clockObject;
     public Showcase showcase;
+    public GameObject TitleObject;
 
     public bool isShowcaseSetOn = true;
 
@@ -21,20 +22,13 @@ public class LayerAnim : MonoBehaviour
     private float screenX;
     private float screenY;
 
-    private Vector3 positionCenter;
-    private Vector3 positionUp;
-    private Vector3 positionDown;
-    private Vector3 positionLeft;
-    private Vector3 positionRight;
-
-    private string clockStr;
     private delegate void delegateAnim();
     private delegateAnim[] delegateAnimList = new delegateAnim[4];
-    private int listCounter = 0;
-    private int secondCounter = 0;
-
+    private string clockStr;
+    private int listCounter = -1;
+    private int secondCounter = -1;
     private bool isShowcasing = false;
-    private bool firstCall = true;
+
     void Start()
     {
         // 将前景图片的尺寸设为当前屏幕高和宽
@@ -44,13 +38,6 @@ public class LayerAnim : MonoBehaviour
         trans = GetComponent<RectTransform>();
         trans.sizeDelta = new Vector2(screenX, screenY);
 
-        // 初始化固定位置，以进行自适应屏幕尺寸的动画
-        positionCenter = new Vector3(0f, 0f, 0f);
-        positionUp     = new Vector3(0f,screenY, 0f);
-        positionDown   = new Vector3(0f,-1 * screenY, 0f);
-        positionLeft   = new Vector3(-1 * screenX, 0f, 0f);
-        positionRight  = new Vector3(screenX, 0f, 0f);
-
         delegateAnimList[0] = Anim1;
         delegateAnimList[1] = Anim2;
         delegateAnimList[2] = Anim3;
@@ -58,25 +45,22 @@ public class LayerAnim : MonoBehaviour
 
         clockStr = clockObject.GetParsedText();
     }
-    private void FixedUpdate()
-    {
-
-    }
 
     private void LateUpdate()
     {
-        // 以文本变化为准的1秒经过
+        // 1秒经过。判断条件为屏幕上文本变化
+        // todo : 需对应暂停后继续时时间错位问题。判断条件改为clock click？
         if (clockStr != clockObject.GetParsedText())
         {
-            if (firstCall)
+            if(listCounter == -1)
             {
-                firstCall = false;
+                listCounter++;
+                clockStr = clockObject.GetParsedText();
+                StartCoroutine(setTitleAcvitity());
                 return;
             }
 
             delegateAnimList[listCounter < 0 ? 0 : listCounter]();
-
-            Debug.Log((long)(System.DateTime.UtcNow.Ticks * 0.0001));
 
             listCounter++;
             if (listCounter == 4)
@@ -88,13 +72,12 @@ public class LayerAnim : MonoBehaviour
             if (isShowcaseSetOn)
             {
                 secondCounter++;
+
                 if (secondCounter >= 5)
                 {
                     secondCounter = 0;
-
                     isShowcasing = !isShowcasing;
                     SetShowCase(isShowcasing);
-
                 }
             }
 
@@ -134,24 +117,30 @@ public class LayerAnim : MonoBehaviour
         showcase.transform.SetAsFirstSibling();
     }
 
+    private IEnumerator setTitleAcvitity()
+    {
+        yield return new WaitForSeconds(1.9f);
+        TitleObject.SetActive(false);
+    }
+
     private void Anim1()
     {
-        transform.localPosition = positionCenter;
-        transform.DOLocalMove(positionLeft, 0.5f);
+        transform.localPosition = Define.PositionDown;
+        transform.DOLocalMove(Define.PositionCenter, 0.5f);
     }
     private void Anim2()
     {
-        transform.localPosition = positionDown;
-        transform.DOLocalMove(positionCenter, 0.5f);
+        transform.localPosition = Define.PositionCenter;
+        transform.DOLocalMove(Define.PositionRight, 0.5f);
     }
     private void Anim3()
     {
-        transform.localPosition = positionCenter;
-        transform.DOLocalMove(positionRight, 0.5f);
+        transform.localPosition = Define.PositionUp;
+        transform.DOLocalMove(Define.PositionCenter, 0.5f);
     }
     private void Anim4()
     {
-        transform.localPosition = positionUp;
-        transform.DOLocalMove(positionCenter, 0.5f);
+        transform.localPosition = Define.PositionCenter;
+        transform.DOLocalMove(Define.PositionLeft, 0.5f);
     }
 }

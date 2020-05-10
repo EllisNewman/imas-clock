@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-
 public class Showcase : MonoBehaviour
 {
     public List<Texture2D> SpriteList = new List<Texture2D>();
@@ -17,13 +16,11 @@ public class Showcase : MonoBehaviour
         image.rectTransform.sizeDelta = new Vector2(Screen.height * 16f / 9f, Screen.height);
         gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
 
-        List<Texture2D> globalSpriteList = GameObject.Find("GlobalManager")?.GetComponent<GlobalManager>().textureList; // todo : REMOVE "?" BEFORE LAUNCH
+        List<Texture2D> globalSpriteList = GameObject.Find("GlobalManager")?.GetComponent<GlobalManager>().textureList;
         if(globalSpriteList != null && globalSpriteList.Count > 0)
         {
             SpriteList = globalSpriteList;
         }
-
-        Debug.Log(SpriteList.Count + " of Sprites loaded.");
     }
 
     void Update()
