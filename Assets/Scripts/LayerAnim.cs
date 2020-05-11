@@ -12,7 +12,6 @@ public class LayerAnim : MonoBehaviour
     public GameObject imageObject;
     public TextMeshProUGUI clockObject;
     public Showcase showcase;
-    public GameObject TitleObject;
 
     public bool isShowcaseSetOn = true;
 
@@ -28,6 +27,8 @@ public class LayerAnim : MonoBehaviour
     private int listCounter = 0;
     private int secondCounter = 0;
     private bool isShowcasing = false;
+
+    private float soundTimer = 1f;
 
     void Start()
     {
@@ -48,10 +49,44 @@ public class LayerAnim : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (soundTimer > 0)
+        {
+            soundTimer -= Time.deltaTime;
+        }
+        else
+        {
+            long sec = DateTime.UtcNow.Ticks % 1000000000 / 10000;
+            if(sec < 1000)
+            {
+                sec += 100000;
+            }
+            //Debug.Log("soundTimer " + sec);
+            soundTimer = 1f;
+        }
+
         // 1秒经过。判断条件为屏幕上文本变化
         // todo : 需对应暂停后继续时时间错位问题。判断条件改为clock click？
         if (clockStr != clockObject.GetParsedText())
         {
+            //double waitTime = (DateTime.UtcNow.Ticks % 10000000 * 0.00001);
+            //cacheWaitTime = waitTime;
+
+            //Debug.Log("Tick is " + DateTime.UtcNow.Ticks);
+            //Debug.Log("divided " + DateTime.UtcNow.Ticks % 10000000);
+            //Debug.Log("plus " + DateTime.UtcNow.Ticks % 10000000 * 0.00001);
+
+
+            //if (waitTime > 5)
+            //{
+            //    Debug.Log("do something to deal with lag");
+            //}
+            long sec = DateTime.UtcNow.Ticks % 1000000000 / 10000;
+            if (sec < 1000)
+            {
+                sec += 100000;
+            }
+            Debug.Log("sec " + sec);
+
             delegateAnimList[listCounter < 0 ? 0 : listCounter]();
 
             listCounter++;
