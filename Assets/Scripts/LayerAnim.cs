@@ -15,11 +15,7 @@ public class LayerAnim : MonoBehaviour
 
     public bool isShowcaseSetOn = true;
 
-    private RectTransform trans;
-    private float posX;
-    private float posY;
-    private float screenX;
-    private float screenY;
+    private RectTransform rectTransform;
 
     private delegate void delegateAnim();
     private delegateAnim[] delegateAnimList = new delegateAnim[4];
@@ -28,16 +24,20 @@ public class LayerAnim : MonoBehaviour
     private int secondCounter = 0;
     private bool isShowcasing = false;
 
-    private float soundTimer = 1f;
+    private float cacheTimer;
 
     void Start()
     {
+        long sec = DateTime.UtcNow.Ticks % 1000000000 / 10000;
+        if (sec < 1000)
+        {
+            sec += 100000;
+        }
+        Debug.Log("first " + sec);
         // 将前景图片的尺寸设为当前屏幕高和宽
-        screenX = Screen.width;
-        screenY = Screen.height;
-        imageObject.GetComponent<RectTransform>().sizeDelta = new Vector2(screenX, screenY);
-        trans = GetComponent<RectTransform>();
-        trans.sizeDelta = new Vector2(screenX, screenY);
+        imageObject.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
+        rectTransform = GetComponent<RectTransform>();
+        rectTransform.sizeDelta = new Vector2(Screen.width, Screen.height);
 
         delegateAnimList[0] = Anim1;
         delegateAnimList[1] = Anim2;
@@ -47,23 +47,23 @@ public class LayerAnim : MonoBehaviour
         clockStr = clockObject.GetParsedText();
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
-        if (soundTimer > 0)
+        long sec = DateTime.UtcNow.Ticks % 1000000000 / 10000;
+        if (sec < 1000)
         {
-            soundTimer -= Time.deltaTime;
-        }
-        else
-        {
-            long sec = DateTime.UtcNow.Ticks % 1000000000 / 10000;
-            if(sec < 1000)
-            {
-                sec += 100000;
-            }
-            //Debug.Log("soundTimer " + sec);
-            soundTimer = 1f;
+            sec += 100000;
         }
 
+        Debug.Log("clock sec " + sec);
+        if ((sec / 1000) != cacheTimer)
+        {
+            cacheTimer = sec / 1000;
+        }
+    }
+
+    private void LateUpdate()
+    {
         // 1秒经过。判断条件为屏幕上文本变化
         // todo : 需对应暂停后继续时时间错位问题。判断条件改为clock click？
         if (clockStr != clockObject.GetParsedText())
@@ -80,12 +80,13 @@ public class LayerAnim : MonoBehaviour
             //{
             //    Debug.Log("do something to deal with lag");
             //}
+
             long sec = DateTime.UtcNow.Ticks % 1000000000 / 10000;
             if (sec < 1000)
             {
                 sec += 100000;
             }
-            Debug.Log("sec " + sec);
+            Debug.LogError("text sec " + sec);
 
             delegateAnimList[listCounter < 0 ? 0 : listCounter]();
 
@@ -112,8 +113,8 @@ public class LayerAnim : MonoBehaviour
         }
 
         // 保持文字居于画面中央
-        posX = trans.localPosition.x;
-        posY = trans.localPosition.y;
+        float posX = rectTransform.localPosition.x;
+        float posY = rectTransform.localPosition.y;
         imageAnchor.transform.localPosition = new Vector3(posX * -1f, posY * -1f, imageAnchor.transform.position.z);
     }
 
