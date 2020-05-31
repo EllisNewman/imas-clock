@@ -10,6 +10,7 @@ public class RuleManager : MonoBehaviour
     public LayerAnim layerAnim;
     public AudioManager audioManager;
 
+    private long milliSec;
     private float cacheTimer;
 
     void Start()
@@ -20,28 +21,30 @@ public class RuleManager : MonoBehaviour
 
     void Update()
     {
-        long milliSec = DateTime.UtcNow.Ticks % 1000000000 / 10000;
-        if(milliSec < 1000)
+        //milliSec = DateTime.UtcNow.Ticks % 1000000000 / 10000;
+        milliSec = DateTime.UtcNow.Ticks % 100000000 / 10000;
+        if (milliSec < 1000)
         {
             cacheTimer %= 1000;
         }
+        //Debug.Log("milliTic : " + DateTime.UtcNow.Ticks % 100000000);
+        //Debug.Log("millisec : " + milliSec);
+        //Debug.Log("cacheTime: " + cacheTimer);
 
         // 1秒经过
         if ((milliSec - cacheTimer) > 1000)
         {
-            Debug.Log(milliSec);
-            Debug.Log(cacheTimer);
             // 试图处理暂停导致的延时
-            if ((milliSec - cacheTimer) > 1100)
+            if (Mathf.Abs(milliSec - cacheTimer) > 1500)
             {
-                Debug.LogError("Do something");
-                cacheTimer = milliSec;
+                audioManager.ClickReset();
+                cacheTimer = milliSec / 1000 * 1000;
+                Debug.LogError("Lag");
                 return;
             }
 
-            audioManager.ClickStart();
             cacheTimer = milliSec / 1000 * 1000;
-            Debug.Log("clock sec " + milliSec);
+            Debug.LogWarning("clock sec " + milliSec);
 
             layerAnim.ClockClick();
             audioManager.ClickCheck();

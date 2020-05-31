@@ -7,27 +7,40 @@ public class AudioManager : MonoBehaviour
 {
     public AudioSource clickSoundSource;
 
+    private float clockCount;
+
     void Start()
     {
         clickSoundSource = GameObject.Find("ClockClick").GetComponent<AudioSource>();
     }
 
-    public void ClickStart()
+    public void ClickCheck()
     {
         if (!clickSoundSource.isPlaying)
         {
             clickSoundSource.Play();
         }
-    }
 
-    public void ClickCheck()
-    {
-        Debug.Log("audio time: " + (clickSoundSource.time + 0.16f) );
+        if (Mathf.Abs(clockCount - clickSoundSource.time) > 0.25f)
+        {
+            Debug.LogError("Deal With Lag");
+            clickSoundSource.time = clockCount;
+        }
+
+        Debug.Log("Clock Count: " + clockCount);
+        clockCount = (clockCount == 59) ? 0 : clockCount + 1;
+
+        Debug.Log("audio time: " + (clickSoundSource.time) );
         long sec = DateTime.UtcNow.Ticks % 1000000000 / 10000;
         if (sec < 1000)
         {
             sec += 1000;
         }
-        //Debug.LogError("audio sec " + sec);
+        Debug.Log("audio sec " + sec);
+    }
+
+    public void ClickReset()
+    {
+        clickSoundSource.time = clockCount == 0 ? clickSoundSource.time : clockCount - 1;
     }
 }
