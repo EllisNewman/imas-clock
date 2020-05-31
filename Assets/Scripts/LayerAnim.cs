@@ -49,17 +49,17 @@ public class LayerAnim : MonoBehaviour
 
     private void FixedUpdate()
     {
-        long sec = DateTime.UtcNow.Ticks % 1000000000 / 10000;
-        if (sec < 1000)
-        {
-            sec += 100000;
-        }
+        //long sec = DateTime.UtcNow.Ticks % 1000000000 / 10000;
+        //if (sec < 1000)
+        //{
+        //    sec += 100000;
+        //}
 
-        Debug.Log("clock sec " + sec);
-        if ((sec / 1000) != cacheTimer)
-        {
-            cacheTimer = sec / 1000;
-        }
+        //Debug.Log("clock sec " + sec);
+        //if ((sec / 1000) != cacheTimer)
+        //{
+        //    cacheTimer = sec / 1000;
+        //}
     }
 
     private void LateUpdate()
