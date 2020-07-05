@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
+using TMPro;
 
 public class LayerAnim : MonoBehaviour
 {
     public GameObject imageAnchor;
     public GameObject imageObject;
+    public GameObject textClockObject;
+    public GameObject textLocObject;
     public Showcase showcase;
+    public Color color;
 
     // 设置选项
     public bool isOptionShowcaseOn = true;
@@ -77,6 +82,13 @@ public class LayerAnim : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SetColor(Color setColor)
+    {
+        imageObject.GetComponent<Image>().color = color;
+        textClockObject.GetComponent<TextMeshProUGUI>().color = color;
+        textLocObject.GetComponent<Text>().color = color;
     }
 
     #region 不用在意的实现细节

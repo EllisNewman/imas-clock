@@ -11,6 +11,7 @@ public class Showcase : MonoBehaviour
     public List<string> SpriteAddrList = new List<string>();
 
     private RawImage image;
+    private bool isShowcaseOn;
     private bool isPreloadOn;
     private bool isAsyncLoading = false;
 
@@ -33,12 +34,13 @@ public class Showcase : MonoBehaviour
         }
 
         // 设置选项 ：是否预先加载图片资源
+        isShowcaseOn = Define.IsShowcaseOn;
         isPreloadOn = Define.IsPreloadOn;
     }
 
     void Update()
     {
-        if (!isPreloadOn)
+        if (isShowcaseOn && !isPreloadOn)
         {
             if (SpriteList.Count < 1 && !isAsyncLoading)
             {
