@@ -25,16 +25,20 @@ public class LayerAnim : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(Screen.width, Screen.height);
 
-        // 使用协程存储动画序列，以便按照索引依次播放
+        // 将动画序列协程存入委托列表中，以便按照索引依次播放
         delegateAnimList[0] = AnimDownToCenter;
         delegateAnimList[1] = AnimCenterToRight;
         delegateAnimList[2] = AnimTopToCenter;
         delegateAnimList[3] = AnimCenterToLeft;
+
+        isOptionShowcaseOn = Define.IsShowcaseOn;
     }
 
+
+    // 移动图片时反向移动文字，以保持文字居于画面中央
+    // 由于移动图片的动画在Update中执行，因此本操作放在LateUpdate中随后执行
     private void LateUpdate()
     {
-        // 移动图片时反向移动文字，以保持文字居于画面中央
         float posX = rectTransform.localPosition.x;
         float posY = rectTransform.localPosition.y;
         imageAnchor.transform.localPosition = new Vector3(posX * -1f, posY * -1f, imageAnchor.transform.position.z);

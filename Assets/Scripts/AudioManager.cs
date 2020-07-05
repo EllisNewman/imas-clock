@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         clickSoundSource = GameObject.Find("ClockClick").GetComponent<AudioSource>();
+        clickSoundSource.volume = Define.IsClockSoundOn ? Define.ClockVolume : 0;
     }
 
     public void ClickCheck()
@@ -36,5 +37,10 @@ public class AudioManager : MonoBehaviour
     public void ClickReset()
     {
         clickSoundSource.time = clockCount == 0 ? clickSoundSource.time : clockCount - 1;
+    }
+
+    public void SetTckSoundVolume(float volumeValue)
+    {
+        clickSoundSource.volume = volumeValue;
     }
 }

@@ -38,6 +38,7 @@ public class RuleManager : MonoBehaviour
         {
             Debug.Log("TimeTic : " + DateTime.UtcNow.Ticks % 100000000);
             Debug.Log("millisec: " + milliSec);
+
             //Debug.Log("cacheTime   : " + cacheTimer);
 
             // 试图处理暂停导致的延时
