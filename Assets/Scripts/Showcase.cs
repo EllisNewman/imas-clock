@@ -40,11 +40,11 @@ public class Showcase : MonoBehaviour
     {
         if (!isPreloadOn)
         {
-            if (SpriteList.Count < 3 && !isAsyncLoading)
+            if (SpriteList.Count < 1 && !isAsyncLoading)
             {
                 StartCoroutine(AsyncLoad());
             }
-        }   
+        }
     }
 
     public void TriggerPicChange()

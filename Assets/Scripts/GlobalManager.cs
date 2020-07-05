@@ -63,10 +63,15 @@ public class GlobalManager : MonoBehaviour
             {
                 continue;
             }
+            
+            textureAddrList.Add(file.FullName);
+        }
 
-            if (Define.IsPreloadOn)
+        if (Define.IsPreloadOn)
+        {
+            foreach (var fileName in textureAddrList)
             {
-                using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(file.FullName))
+                using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(fileName))
                 {
                     yield return www.SendWebRequest();
                     if (www.isNetworkError)
@@ -80,11 +85,24 @@ public class GlobalManager : MonoBehaviour
                     }
                 }
             }
-            else
+        }
+        else
+        {
+            using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(textureAddrList[UnityEngine.Random.Range(0, textureAddrList.Count)]))
             {
-                textureAddrList.Add(file.FullName);
+                yield return www.SendWebRequest();
+                if (www.isNetworkError)
+                {
+                    Debug.Log(www.error);
+                }
+                else
+                {
+                    Texture2D myTexture = DownloadHandlerTexture.GetContent(www);
+                    textureList.Add(myTexture);
+                }
             }
         }
+
         isLoadingOver = true;
         yield return null;
     }
@@ -106,4 +124,5 @@ public class GlobalManager : MonoBehaviour
         string strSetting = System.Text.RegularExpressions.Regex.Replace(srSettingFile.ReadToEnd(), "[\r\n\t]", "");
         Setting.CreateFromJSON(strSetting).ApplySetting();
     }
+
 }

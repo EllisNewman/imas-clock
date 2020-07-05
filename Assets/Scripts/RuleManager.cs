@@ -36,6 +36,7 @@ public class RuleManager : MonoBehaviour
         // 判断1秒经过
         if ((milliSec - cacheTimer) > 1000)
         {
+
             Debug.Log("TimeTic : " + DateTime.UtcNow.Ticks % 100000000);
             Debug.Log("millisec: " + milliSec);
 
