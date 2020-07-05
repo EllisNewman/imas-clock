@@ -18,6 +18,8 @@ public class TimeText : MonoBehaviour
 
     void Update()
     {
-        textMesh.SetText(DateTime.Now.ToLongTimeString().Replace(":",""));
+        //TODO : 通过设置选项选择时间格式
+        textMesh.SetText(DateTime.Now.ToLongTimeString());
+//        textMesh.SetText(DateTime.Now.ToLongTimeString().Replace(":", ""));
     }
 }

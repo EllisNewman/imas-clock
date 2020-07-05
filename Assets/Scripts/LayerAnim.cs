@@ -34,7 +34,7 @@ public class LayerAnim : MonoBehaviour
 
     private void LateUpdate()
     {
-        // 保持文字居于画面中央
+        // 移动图片时反向移动文字，以保持文字居于画面中央
         float posX = rectTransform.localPosition.x;
         float posY = rectTransform.localPosition.y;
         imageAnchor.transform.localPosition = new Vector3(posX * -1f, posY * -1f, imageAnchor.transform.position.z);

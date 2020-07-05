@@ -29,7 +29,7 @@ public class GlobalManager : MonoBehaviour
     {
         if (isLoadingOver)
         {
-            // 为避免延时，从下一秒开始时才进行跳转
+            // 为避免延时，从下一秒开始时才进行场景跳转
             float waitTime = (float)(DateTime.UtcNow.Ticks * 0.0001 % 1000);
             waitTime = 1f - waitTime * 0.001f;
             isLoadingOver = false;

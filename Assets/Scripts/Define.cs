@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class Define
 {
+    //设置选项
     public static bool IsMusicOn;
     public static bool IsClockSoundOn;
     public static bool IsShowcaseOn;
