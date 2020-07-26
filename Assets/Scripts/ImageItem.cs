@@ -15,6 +15,7 @@ public class ImageItem : MonoBehaviour
     void Start()
     {
         btnImage.onClick.AddListener(OnBtnImageClick);
+        chosenImage.SetActive(false);
     }
 
     public void OnBtnImageClick()
@@ -22,10 +23,19 @@ public class ImageItem : MonoBehaviour
         if(isChosen)
         {
             isChosen = false;
+            chosenImage.SetActive(false);
         }
         else
         {
             isChosen = true;
+            chosenImage.SetActive(true);
         }
     }
+
+    public void SetColor(Color color)
+    {
+        btnImage.image.color = color;
+        currentColor = color;
+    }
+
 }

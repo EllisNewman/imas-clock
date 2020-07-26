@@ -10,6 +10,8 @@ public class ColorSettingPanel : MonoBehaviour
     public GameObject multiColorPanel;
     public GameObject singleColorPanel;
     public GameObject editColorWindow;
+    public GameObject multiColorImageItem;
+    public GameObject colorGroupContent;
 
     public Toggle tglColorChange;
 
@@ -18,7 +20,14 @@ public class ColorSettingPanel : MonoBehaviour
     public Image imgSingleColor;
 
     // 多色模式
-    public List<Color> colorList;
+    private List<Color> colorList;
+    private int chosenItemId;
+    private delegate void OnChoseItem();
+    private delegate void OnEditItem();
+    private OnChoseItem onChoseItem;
+    private OnEditItem onEditItem;
+
+
 
     void Start()
     {
@@ -28,6 +37,14 @@ public class ColorSettingPanel : MonoBehaviour
         if(colorList.Count == 0)
         {
             colorList.Add(imgSingleColor.color);
+        }
+        for(int i = 0; i < colorList.Count; i++)
+        {
+            ImageItem colorGroupItem = Instantiate(multiColorImageItem, colorGroupContent.gameObject.transform).GetComponent<ImageItem>();
+            colorGroupItem.SetColor(colorList[i]);
+            colorGroupItem.id = i;
+
+            onChoseItem += colorGroupItem.OnBtnImageClick;
         }
 
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
@@ -23,6 +24,8 @@ public class LayerAnim : MonoBehaviour
     private int secondCounter = 0;
     private bool isShowcasing = false;
 
+    private List<Color> colorList;
+
     void Start()
     {
         if(Define.ColorSingleMode != "")
@@ -33,6 +36,19 @@ public class LayerAnim : MonoBehaviour
         {
             SetColor(new Color(0.078f, 0.952f, 1));
             Define.SetColorSingle(new Color(0.078f, 0.952f, 1));
+        }
+
+        if(Define.IsColorChange)
+        {
+            colorList = Define.GetColorList();
+            if(colorList == null || colorList.Count == 0)
+            {
+                colorList.Add(new Color(0.078f, 0.952f, 1));
+                colorList.Add(new Color(0.498f, 0.537f, 1));
+                colorList.Add(new Color(0.530f, 0.976f, 0.58f));
+                colorList.Add(new Color(1, 0.631f, 0.647f));
+            }
+            Define.SetColorList(colorList);
         }
 
         // 将前景图片的尺寸设为当前屏幕高和宽
