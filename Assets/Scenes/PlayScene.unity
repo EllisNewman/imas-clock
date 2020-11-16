@@ -1856,7 +1856,6 @@ MonoBehaviour:
   tglColorChange: {fileID: 1859231036}
   btnEditSingleColor: {fileID: 269864084}
   imgSingleColor: {fileID: 727733673}
-  colorList: []
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2998,7 +2997,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 808474579}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 513630193}
+        m_MethodName: OnBtnAddColor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &808474579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6252,7 +6262,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1674313701}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 513630193}
+        m_MethodName: OnBtnEditColor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1674313701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7016,7 +7037,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1849778968
 Transform:
   m_ObjectHideFlags: 0
@@ -7801,7 +7822,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2066231135}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 513630193}
+        m_MethodName: OnBtnDeleteColor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2066231135
 MonoBehaviour:
   m_ObjectHideFlags: 0

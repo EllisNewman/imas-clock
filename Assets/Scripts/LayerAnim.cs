@@ -19,7 +19,6 @@ public class LayerAnim : MonoBehaviour
 
     private RectTransform rectTransform;
     private delegate void delegateAnim();
-    private delegateAnim[] delegateAnimList = new delegateAnim[4];
     private int listCounter = 0;
     private int secondCounter = 0;
     private bool isShowcasing = false;
@@ -28,6 +27,7 @@ public class LayerAnim : MonoBehaviour
 
     void Start()
     {
+        // 单色模式下的颜色设定，未取得时设置初始值
         if(Define.ColorSingleMode != "")
         {
             SetColor(Define.GetColorSingle());
@@ -38,29 +38,22 @@ public class LayerAnim : MonoBehaviour
             Define.SetColorSingle(new Color(0.078f, 0.952f, 1));
         }
 
-        if(Define.IsColorChange)
+        // 多背景色模式的背景色列表取得，未取得时设置初始值
+        colorList = Define.GetColorList();
+        if(colorList == null || colorList.Count == 0)
         {
-            colorList = Define.GetColorList();
-            if(colorList == null || colorList.Count == 0)
-            {
-                colorList.Add(new Color(0.078f, 0.952f, 1));
-                colorList.Add(new Color(0.498f, 0.537f, 1));
-                colorList.Add(new Color(0.530f, 0.976f, 0.58f));
-                colorList.Add(new Color(1, 0.631f, 0.647f));
-            }
-            Define.SetColorList(colorList);
+            colorList.Add(new Color(0.078f, 0.952f, 1));
+            colorList.Add(new Color(0.498f, 0.537f, 1));
+            colorList.Add(new Color(0.530f, 0.976f, 0.58f));
+            colorList.Add(new Color(1, 0.631f, 0.647f));
         }
+        Define.SetColorList(colorList);
+        
 
         // 将前景图片的尺寸设为当前屏幕高和宽
         imageObject.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
         rectTransform = GetComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(Screen.width, Screen.height);
-
-        // 将动画序列协程存入委托列表中，以便按照索引依次播放
-        delegateAnimList[0] = AnimDownToCenter;
-        delegateAnimList[1] = AnimCenterToRight;
-        delegateAnimList[2] = AnimTopToCenter;
-        delegateAnimList[3] = AnimCenterToLeft;
 
         currentColor = imageObject.GetComponent<Image>().color;
 
@@ -79,10 +72,17 @@ public class LayerAnim : MonoBehaviour
     // 每当1秒经过时被调用，执行每秒的动画切页和图片展示
     public void ClockClick()
     {
-        delegateAnimList[listCounter < 0 ? 0 : listCounter]();
+        switch (listCounter)
+        {
+            case 0: AnimDownToCenter();  break;
+            case 1: AnimCenterToRight(); break;
+            case 2: AnimTopToCenter();   break;
+            case 3: AnimCenterToLeft();  break;
+        }
 
-        listCounter++;
-        if (listCounter == 4)
+        listCounter += 1;
+
+        if (listCounter >= 4)
         {
             listCounter = 0;
         }
@@ -112,6 +112,7 @@ public class LayerAnim : MonoBehaviour
         }
     }
 
+    // 应用当前颜色至背景和文字
     public void SetColor(Color setColor)
     {
         currentColor = setColor;

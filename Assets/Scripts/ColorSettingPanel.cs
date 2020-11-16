@@ -20,19 +20,20 @@ public class ColorSettingPanel : MonoBehaviour
     public Image imgSingleColor;
 
     // 多色模式
-    private List<Color> colorList;
-    private int chosenItemId;
-    private delegate void OnChoseItem();
+    public List<Color> colorList;
+    public int currentItemId = -1;
+    private delegate void OnChoseItem(int id);
     private delegate void OnEditItem();
+    private delegate void OnDeleteItem(int id);
     private OnChoseItem onChoseItem;
     private OnEditItem onEditItem;
 
-
-
     void Start()
     {
+        // 单色模式的颜色初始值为当前背景色
         imgSingleColor.color = layerAnim.currentColor;
 
+        // 读取多色模式颜色list并初始化颜色列表
         colorList = Define.GetColorList();
         if(colorList.Count == 0)
         {
@@ -44,9 +45,9 @@ public class ColorSettingPanel : MonoBehaviour
             colorGroupItem.SetColor(colorList[i]);
             colorGroupItem.id = i;
 
-            onChoseItem += colorGroupItem.OnBtnImageClick;
+            onChoseItem += colorGroupItem.OnChooseAt;
+            colorGroupItem.onChooseEvent += OnItemChoosed;
         }
-
 
         if(Define.IsColorChange)
         {
@@ -57,14 +58,6 @@ public class ColorSettingPanel : MonoBehaviour
             tglColorChange.isOn = false;
         }
         OnTglColorChange();
-    }
-
-    public void AddColor()
-    {
-        colorList.Add(new Color(0.078f, 0.952f, 1));
-        colorList.Add(new Color(0.498f, 0.537f, 1));
-        colorList.Add(new Color(0.530f, 0.976f, 0.58f));
-        colorList.Add(new Color(1, 0.631f, 0.647f));
     }
 
     public void OnTglColorChange()
@@ -86,22 +79,45 @@ public class ColorSettingPanel : MonoBehaviour
     #region 多背景色模式
     public void OnBtnAddColor()
     {
+        ImageItem colorGroupItem = Instantiate(multiColorImageItem, colorGroupContent.gameObject.transform).GetComponent<ImageItem>();
+        colorGroupItem.SetColor(Color.white);
+        colorGroupItem.id = colorList.Count;
+        colorList.Add(Color.white);
 
+        onChoseItem += colorGroupItem.OnChooseAt;
+        colorGroupItem.onChooseEvent += OnItemChoosed;
     }
 
     public void OnBtnEditColor()
     {
+        if (currentItemId == -1) return;
 
     }
 
     public void OnBtnDeleteColor()
     {
+        if (currentItemId == -1) return;
 
+        colorList.RemoveAt(currentItemId);
+
+        ImageItem[] itemList = colorGroupContent.GetComponentsInChildren<ImageItem>();
+        onChoseItem -= itemList[currentItemId].OnChooseAt;
+
+        Debug.LogWarning("Delete At: " + currentItemId);
+        Destroy(itemList[currentItemId].gameObject);
+        currentItemId = -1;
+    }
+
+    public void OnItemChoosed(int id)
+    {
+        currentItemId = id;
+        onChoseItem(id);
     }
 
     #endregion
 
     #region 单色模式
+    // 单色模式 编辑按钮
     public void OnBtnEditSingleColorClick()
     {
         ColorEditWindow colorEditWindow = Instantiate(editColorWindow, transform).GetComponent<ColorEditWindow>();
