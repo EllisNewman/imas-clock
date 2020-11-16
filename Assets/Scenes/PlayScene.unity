@@ -653,6 +653,7 @@ MonoBehaviour:
   showcase: {fileID: 349004994}
   currentColor: {r: 0, g: 0, b: 0, a: 0}
   isOptionShowcaseOn: 1
+  colorIndex: 0
 --- !u!1 &196967187
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,7 +1467,7 @@ GameObject:
   - component: {fileID: 311598658}
   - component: {fileID: 311598659}
   m_Layer: 0
-  m_Name: Tgl60min
+  m_Name: Tgl10min
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1535,10 +1536,21 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1689487755}
   toggleTransition: 1
   graphic: {fileID: 1450455030}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 1275671781}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 513630193}
+        m_MethodName: OnTglColorChangeFreq10min
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &349004991
 GameObject:
@@ -1854,8 +1866,15 @@ MonoBehaviour:
     type: 3}
   colorGroupContent: {fileID: 49581062}
   tglColorChange: {fileID: 1859231036}
+  tglColorChangeFreq5s: {fileID: 1296943622}
+  tglColorChangeFreq1min: {fileID: 2093784062}
+  tglColorChangeFreq10min: {fileID: 311598659}
+  tglColorChangeModOrder: {fileID: 1225319152}
+  tglColorChangeModRandom: {fileID: 1618409849}
   btnEditSingleColor: {fileID: 269864084}
   imgSingleColor: {fileID: 727733673}
+  colorList: []
+  currentItemId: -1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2084,7 +2103,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "10\u5206\u949F"
+  m_Text: "1\u5206\u949F"
 --- !u!222 &530988972
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4209,10 +4228,21 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1227985442}
   toggleTransition: 1
   graphic: {fileID: 1710705440}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 874945583}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 513630193}
+        m_MethodName: OnTglColorChangeModOrder
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &1227985440
 GameObject:
@@ -4455,7 +4485,7 @@ GameObject:
   - component: {fileID: 1296943621}
   - component: {fileID: 1296943622}
   m_Layer: 0
-  m_Name: Tgl1min
+  m_Name: Tgl5s
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4524,10 +4554,21 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 248119099}
   toggleTransition: 1
   graphic: {fileID: 279032320}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 1275671781}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 513630193}
+        m_MethodName: OnTglColorChangeFreq5s
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &1313651339
 GameObject:
@@ -5508,7 +5549,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "1\u5C0F\u65F6"
+  m_Text: "10\u5206\u949F"
 --- !u!222 &1559366429
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5670,10 +5711,21 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 677244662}
   toggleTransition: 1
   graphic: {fileID: 1178988094}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 874945583}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 513630193}
+        m_MethodName: OnTglColorChangeModRandom
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &1620128054
 GameObject:
@@ -7938,7 +7990,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "1\u5206\u949F"
+  m_Text: "5\u79D2\u949F"
 --- !u!222 &2072038994
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8205,7 +8257,7 @@ GameObject:
   - component: {fileID: 2093784061}
   - component: {fileID: 2093784062}
   m_Layer: 0
-  m_Name: Tgl10min
+  m_Name: Tgl1min
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8274,10 +8326,21 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1983857699}
   toggleTransition: 1
   graphic: {fileID: 1773207614}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 1275671781}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 513630193}
+        m_MethodName: OnTglColorChangeFreq1min
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &2100018551
 GameObject:

@@ -15,6 +15,11 @@ public class ColorSettingPanel : MonoBehaviour
     public GameObject colorGroupContent;
 
     public Toggle tglColorChange;
+    public Toggle tglColorChangeFreq5s;
+    public Toggle tglColorChangeFreq1min;
+    public Toggle tglColorChangeFreq10min;
+    public Toggle tglColorChangeModOrder;
+    public Toggle tglColorChangeModRandom;
 
     // 单色模式
     public Button btnEditSingleColor;
@@ -140,6 +145,46 @@ public class ColorSettingPanel : MonoBehaviour
         onChoseItem(id);
     }
 
+    public void OnTglColorChangeFreq5s(bool value)
+    {
+        if (tglColorChangeFreq5s.isOn) 
+        {
+            Define.ColorChangeFreq = "5";
+        }
+    }
+
+    public void OnTglColorChangeFreq1min(bool value)
+    {
+        if (tglColorChangeFreq1min.isOn)
+        {
+            Define.ColorChangeFreq = "60";
+        }
+    }
+
+    public void OnTglColorChangeFreq10min(bool value)
+    {
+        if (tglColorChangeFreq10min.isOn)
+        {
+            Define.ColorChangeFreq = "600";
+        }
+    }
+
+    public void OnTglColorChangeModOrder(bool value)
+    {
+        if (tglColorChangeModOrder.isOn)
+        {
+            Define.ColorChangeMode = "order";
+        }
+    }
+
+    public void OnTglColorChangeModRandom(bool value)
+    {
+        if (tglColorChangeModRandom.isOn)
+        {
+            Define.ColorChangeMode = "random";
+        }
+    }
+
     #endregion
 
     #region 单色模式
@@ -161,6 +206,4 @@ public class ColorSettingPanel : MonoBehaviour
         Define.SetColorSingle(color);
     }
     #endregion
-
-
 }

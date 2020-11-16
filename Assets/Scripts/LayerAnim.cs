@@ -14,19 +14,36 @@ public class LayerAnim : MonoBehaviour
     public Showcase showcase;
     public Color currentColor;
 
-    // 设置选项
-    public bool isOptionShowcaseOn = true;
-
     private RectTransform rectTransform;
     private delegate void delegateAnim();
     private int listCounter = 0;
     private int secondCounter = 0;
     private bool isShowcasing = false;
 
+    // 设置选项
+    public bool isOptionShowcaseOn = true;
+    private bool isColorChange = false;
     private List<Color> colorList;
+    private int colorChangeCounter = 0;
+    public  int colorIndex = 0;
+    private int colorChangeFreq = 60;
+    private string colorChangeMode = "";
 
     void Start()
     {
+        // 获取设置选项
+        isColorChange = Define.IsColorChange;
+        isOptionShowcaseOn = Define.IsShowcaseOn;
+        colorChangeMode = Define.ColorChangeMode;
+        if (int.TryParse(Define.ColorChangeFreq, out colorChangeFreq))
+        {
+            colorChangeFreq -= 1;
+        }
+        else
+        {
+            colorChangeFreq = 59;
+        }
+
         // 单色模式下的颜色设定，未取得时设置初始值
         if (Define.ColorSingleMode == "")
         {
@@ -46,7 +63,7 @@ public class LayerAnim : MonoBehaviour
         Define.SetColorList(colorList);
 
         // 设置选项：单色模式
-        if (!Define.IsColorChange)
+        if (!isColorChange)
         {
             SetColor(Define.GetColorSingle());
         }
@@ -63,7 +80,6 @@ public class LayerAnim : MonoBehaviour
 
         currentColor = imageObject.GetComponent<Image>().color;
 
-        isOptionShowcaseOn = Define.IsShowcaseOn;
     }
 
     // 移动图片时反向移动文字，以保持文字居于画面中央
@@ -127,6 +143,30 @@ public class LayerAnim : MonoBehaviour
         textLocObject.GetComponent<Text>().color = currentColor;
     }
 
+    public void ColorChangeClick()
+    {
+        if (!isColorChange) return;
+
+
+        if (colorChangeCounter >= colorChangeFreq)
+        {
+            colorChangeCounter = 0;
+
+            if ("random".Equals(colorChangeMode))
+            {
+                GetNextColorByRandom();
+            }
+            else
+            {
+                GetNextColorByOrder();
+            }
+        }
+        else
+        {
+            colorChangeCounter += 1;
+        }
+    }
+
     #region 不用在意的实现细节
 
     private IEnumerator SetImageActivity(bool flag)
@@ -159,6 +199,23 @@ public class LayerAnim : MonoBehaviour
     {
         transform.localPosition = Define.PositionCenter;
         transform.DOLocalMove(Define.PositionLeft, 0.5f);
+    }
+
+    public void GetNextColorByRandom()
+    {
+        int colorIndex = Random.Range(0, colorList.Count);
+
+        SetColor(colorList[colorIndex]);
+    }
+
+    public void GetNextColorByOrder()
+    {
+        colorIndex += 1;
+        if (colorIndex >= colorList.Count)
+        {
+            colorIndex = 0;
+        }
+        SetColor(colorList[colorIndex]);
     }
     #endregion
 }

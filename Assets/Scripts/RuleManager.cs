@@ -55,6 +55,7 @@ public class RuleManager : MonoBehaviour
             //Debug.LogWarning("cache sec " + cacheTimer);
 
             layerAnim.ClockClick();
+            layerAnim.ColorChangeClick();
             audioManager.ClickCheck();
         }
     }
