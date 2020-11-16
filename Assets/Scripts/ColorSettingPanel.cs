@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -86,12 +87,29 @@ public class ColorSettingPanel : MonoBehaviour
 
         onChoseItem += colorGroupItem.OnChooseAt;
         colorGroupItem.onChooseEvent += OnItemChoosed;
+
+        // 保存设置
+        Define.SetColorList(colorList);
     }
 
     public void OnBtnEditColor()
     {
         if (currentItemId == -1) return;
 
+        List<ImageItem> itemList = colorGroupContent.GetComponentsInChildren<ImageItem>().ToList();
+        ColorEditWindow colorEditWindow = Instantiate(editColorWindow, transform).GetComponent<ColorEditWindow>();
+        colorEditWindow.setCurrentColor(itemList[currentItemId].currentColor);
+        colorEditWindow.OnWindowClose += OnReturnEditingColorItem;
+    }
+
+    public void OnReturnEditingColorItem(Color color)
+    {
+        List<ImageItem> itemList = colorGroupContent.GetComponentsInChildren<ImageItem>().ToList();
+        itemList[currentItemId].SetColor(color);
+        colorList[currentItemId] = color;
+
+        // 保存设置
+        Define.SetColorList(colorList);
     }
 
     public void OnBtnDeleteColor()
@@ -100,12 +118,20 @@ public class ColorSettingPanel : MonoBehaviour
 
         colorList.RemoveAt(currentItemId);
 
-        ImageItem[] itemList = colorGroupContent.GetComponentsInChildren<ImageItem>();
+        // 取得颜色列表，删除目标颜色并刷新列表
+        List<ImageItem> itemList = colorGroupContent.GetComponentsInChildren<ImageItem>().ToList();
         onChoseItem -= itemList[currentItemId].OnChooseAt;
-
-        Debug.LogWarning("Delete At: " + currentItemId);
         Destroy(itemList[currentItemId].gameObject);
+        itemList.RemoveAt(currentItemId);
         currentItemId = -1;
+
+        for (int i = 0; i < itemList.Count; i++)
+        {
+            itemList[i].id = i;
+        }
+
+        // 保存设置
+        Define.SetColorList(colorList);
     }
 
     public void OnItemChoosed(int id)
@@ -135,5 +161,6 @@ public class ColorSettingPanel : MonoBehaviour
         Define.SetColorSingle(color);
     }
     #endregion
+
 
 }

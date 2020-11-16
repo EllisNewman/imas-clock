@@ -28,11 +28,7 @@ public class LayerAnim : MonoBehaviour
     void Start()
     {
         // 单色模式下的颜色设定，未取得时设置初始值
-        if(Define.ColorSingleMode != "")
-        {
-            SetColor(Define.GetColorSingle());
-        }
-        else
+        if (Define.ColorSingleMode == "")
         {
             SetColor(new Color(0.078f, 0.952f, 1));
             Define.SetColorSingle(new Color(0.078f, 0.952f, 1));
@@ -48,8 +44,18 @@ public class LayerAnim : MonoBehaviour
             colorList.Add(new Color(1, 0.631f, 0.647f));
         }
         Define.SetColorList(colorList);
-        
 
+        // 设置选项：单色模式
+        if (!Define.IsColorChange)
+        {
+            SetColor(Define.GetColorSingle());
+        }
+        // 设置选项：多色模式
+        else
+        {
+            SetColor(colorList[0]);
+        }
+        
         // 将前景图片的尺寸设为当前屏幕高和宽
         imageObject.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
         rectTransform = GetComponent<RectTransform>();

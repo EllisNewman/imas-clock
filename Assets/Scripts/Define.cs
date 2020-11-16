@@ -131,6 +131,7 @@ public class Setting
         Define.ColorListArray  = colorListArray;
     }
 
+    // 保存设置
     public string SaveToString()
     {
         return JsonUtility.ToJson(this);
