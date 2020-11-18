@@ -73,6 +73,28 @@ public class ColorSettingPanel : MonoBehaviour
             Define.IsColorChange = true;
             singleColorPanel.SetActive(false);
             multiColorPanel.SetActive(true);
+
+            if ("5".Equals(Define.ColorChangeFreq))
+            {
+                tglColorChangeFreq5s.isOn = true;
+            }
+            else if ("60".Equals(Define.ColorChangeFreq))
+            {
+                tglColorChangeFreq1min.isOn = true;
+            }
+            else if ("600".Equals(Define.ColorChangeFreq))
+            {
+                tglColorChangeFreq10min.isOn = true;
+            }
+
+            if ("random".Equals(Define.ColorChangeMode))
+            {
+                tglColorChangeModRandom.isOn = true;
+            }
+            else
+            {
+                tglColorChangeModOrder.isOn = true;
+            }
         }
         else
         {

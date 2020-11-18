@@ -22,7 +22,6 @@ public class LayerAnim : MonoBehaviour
 
     // 设置选项
     public bool isOptionShowcaseOn = true;
-    private bool isColorChange = false;
     private List<Color> colorList;
     private int colorChangeCounter = 0;
     public  int colorIndex = 0;
@@ -32,7 +31,6 @@ public class LayerAnim : MonoBehaviour
     void Start()
     {
         // 获取设置选项
-        isColorChange = Define.IsColorChange;
         isOptionShowcaseOn = Define.IsShowcaseOn;
         colorChangeMode = Define.ColorChangeMode;
         if (int.TryParse(Define.ColorChangeFreq, out colorChangeFreq))
@@ -63,7 +61,7 @@ public class LayerAnim : MonoBehaviour
         Define.SetColorList(colorList);
 
         // 设置选项：单色模式
-        if (!isColorChange)
+        if (!Define.IsColorChange)
         {
             SetColor(Define.GetColorSingle());
         }
@@ -145,7 +143,7 @@ public class LayerAnim : MonoBehaviour
 
     public void ColorChangeClick()
     {
-        if (!isColorChange) return;
+        if (!Define.IsColorChange) return;
 
 
         if (colorChangeCounter >= colorChangeFreq)
