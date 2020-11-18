@@ -25,7 +25,7 @@ public class LayerAnim : MonoBehaviour
     private List<Color> colorList;
     private int colorChangeCounter = 0;
     public  int colorIndex = 0;
-    private int colorChangeFreq = 60;
+    private int colorChangeFreq = 5;
     private string colorChangeMode = "";
 
     void Start()
@@ -45,18 +45,20 @@ public class LayerAnim : MonoBehaviour
         // 单色模式下的颜色设定，未取得时设置初始值
         if (Define.ColorSingleMode == "")
         {
-            SetColor(new Color(0.078f, 0.952f, 1));
-            Define.SetColorSingle(new Color(0.078f, 0.952f, 1));
+            Color defaultColor = new Color(243f/255f, 78f/255f, 108f/255f);
+            SetColor(defaultColor);
+            Define.SetColorSingle(defaultColor);
         }
 
         // 多背景色模式的背景色列表取得，未取得时设置初始值
         colorList = Define.GetColorList();
         if(colorList == null || colorList.Count == 0)
         {
-            colorList.Add(new Color(0.078f, 0.952f, 1));
-            colorList.Add(new Color(0.498f, 0.537f, 1));
-            colorList.Add(new Color(0.530f, 0.976f, 0.58f));
-            colorList.Add(new Color(1, 0.631f, 0.647f));
+            colorList.Add(new Color(243f / 255f,  78f / 255f, 108f / 255f));
+            colorList.Add(new Color( 37f / 255f, 129f / 255f, 199f / 255f));
+            colorList.Add(new Color(         1f, 194f / 255f,  11f / 255f));
+            colorList.Add(new Color( 17f / 255f, 190f / 255f, 147f / 255f));
+            colorList.Add(new Color(141f / 255f, 186f / 255f,          1f));
         }
         Define.SetColorList(colorList);
 
