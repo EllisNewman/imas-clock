@@ -15,6 +15,10 @@ public class MenuPanel : MonoBehaviour
     public Toggle tglColor;
     public Toggle tglAbout;
 
+    public Text tglCommonText;
+    public Text tglColorText;
+    public Text tglAboutText;
+
     public void Start()
     {
         tglCommon.Select();
@@ -28,14 +32,32 @@ public class MenuPanel : MonoBehaviour
         if (tglCommon.isOn)
         {
             commonPanel.SetActive(true);
+            tglCommonText.color = Color.white;
+            tglColorText.color = Color.black;
+            tglAboutText.color = Color.black;
+            tglCommonText.fontSize = 18;
+            tglColorText.fontSize = 14;
+            tglAboutText.fontSize = 14;
         }
         if (tglColor.isOn)
         {
             colorPanel.SetActive(true);
+            tglCommonText.color = Color.black;
+            tglColorText.color = Color.white;
+            tglAboutText.color = Color.black;
+            tglCommonText.fontSize = 14;
+            tglColorText.fontSize = 18;
+            tglAboutText.fontSize = 14;
         }
         if (tglAbout.isOn)
         {
             aboutPanel.SetActive(true);
+            tglCommonText.color = Color.black;
+            tglColorText.color = Color.black;
+            tglAboutText.color = Color.white;
+            tglCommonText.fontSize = 14;
+            tglColorText.fontSize = 14;
+            tglAboutText.fontSize = 18;
         }
     }
 

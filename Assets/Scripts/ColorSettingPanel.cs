@@ -15,7 +15,7 @@ public class ColorSettingPanel : MonoBehaviour
     public GameObject colorGroupContent;
 
     public Toggle tglColorChange;
-    public Toggle tglColorChangeFreq5s;
+    public Toggle tglColorChangeFreq10s;
     public Toggle tglColorChangeFreq1min;
     public Toggle tglColorChangeFreq10min;
     public Toggle tglColorChangeModOrder;
@@ -32,7 +32,6 @@ public class ColorSettingPanel : MonoBehaviour
     private delegate void OnEditItem();
     private delegate void OnDeleteItem(int id);
     private OnChoseItem onChoseItem;
-    private OnEditItem onEditItem;
 
     void Start()
     {
@@ -76,7 +75,7 @@ public class ColorSettingPanel : MonoBehaviour
 
             if ("5".Equals(Define.ColorChangeFreq))
             {
-                tglColorChangeFreq5s.isOn = true;
+                tglColorChangeFreq10s.isOn = true;
             }
             else if ("60".Equals(Define.ColorChangeFreq))
             {
@@ -108,9 +107,9 @@ public class ColorSettingPanel : MonoBehaviour
     public void OnBtnAddColor()
     {
         ImageItem colorGroupItem = Instantiate(multiColorImageItem, colorGroupContent.gameObject.transform).GetComponent<ImageItem>();
-        colorGroupItem.SetColor(Color.white);
+        colorGroupItem.SetColor(new Color(243f / 255f, 78f / 255f, 108f / 255f));
         colorGroupItem.id = colorList.Count;
-        colorList.Add(Color.white);
+        colorList.Add(new Color(243f / 255f, 78f / 255f, 108f / 255f));
 
         onChoseItem += colorGroupItem.OnChooseAt;
         colorGroupItem.onChooseEvent += OnItemChoosed;
@@ -167,11 +166,11 @@ public class ColorSettingPanel : MonoBehaviour
         onChoseItem(id);
     }
 
-    public void OnTglColorChangeFreq5s(bool value)
+    public void OnTglColorChangeFreq10s(bool value)
     {
-        if (tglColorChangeFreq5s.isOn) 
+        if (tglColorChangeFreq10s.isOn) 
         {
-            Define.ColorChangeFreq = "5";
+            Define.ColorChangeFreq = "10";
         }
     }
 

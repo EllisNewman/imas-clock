@@ -25,7 +25,7 @@ public class LayerAnim : MonoBehaviour
     private List<Color> colorList;
     private int colorChangeCounter = 0;
     public  int colorIndex = 0;
-    private int colorChangeFreq = 5;
+    private int colorChangeFreq = 10;
     private string colorChangeMode = "";
 
     void Start()
@@ -39,7 +39,7 @@ public class LayerAnim : MonoBehaviour
         }
         else
         {
-            colorChangeFreq = 59;
+            colorChangeFreq = 9;
         }
 
         // 单色模式下的颜色设定，未取得时设置初始值
