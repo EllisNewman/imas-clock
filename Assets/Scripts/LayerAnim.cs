@@ -80,6 +80,7 @@ public class LayerAnim : MonoBehaviour
 
         currentColor = imageObject.GetComponent<Image>().color;
 
+        // TODO : 夜间模式初始化
     }
 
     // 移动图片时反向移动文字，以保持文字居于画面中央

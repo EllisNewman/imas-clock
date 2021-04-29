@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CommonSettingPanel : MonoBehaviour
 {
@@ -7,8 +8,12 @@ public class CommonSettingPanel : MonoBehaviour
     public Toggle tglShowcase;
     public Toggle tglShowcaseAnim;
     public Toggle tglPreload;
+    public Toggle tglNightMode;
     public Scrollbar scrClockSound;
     public AudioManager audioManager;
+    public Image layoutImage;
+    public TextMeshProUGUI layoutClockText;
+    public TextMeshProUGUI layoutLocText;
 
     void Start()
     {
@@ -16,6 +21,7 @@ public class CommonSettingPanel : MonoBehaviour
         tglShowcase.SetIsOnWithoutNotify(Define.IsShowcaseOn);
         tglShowcaseAnim.SetIsOnWithoutNotify(Define.IsShowcaseAnimOn);
         tglPreload.SetIsOnWithoutNotify(Define.IsPreloadOn);
+        tglNightMode.SetIsOnWithoutNotify(Define.IsNightMode);
         scrClockSound.value = Define.ClockVolume;
 
         if (!tglClockSound.isOn)
@@ -80,6 +86,24 @@ public class CommonSettingPanel : MonoBehaviour
         else
         {
             Define.IsShowcaseAnimOn = false;
+        }
+    }
+
+    public void OnTglNightModeChanged()
+    {
+        if (tglNightMode.isOn)
+        {
+            Define.IsNightMode = true;
+            layoutImage.color = new Color(30 / 255f, 30 / 255f, 30 / 255f);
+            layoutClockText.color = new Color(30 / 255f, 30 / 255f, 30 / 255f);
+            layoutLocText.color = new Color(30 / 255f, 30 / 255f, 30 / 255f);
+        }
+        else
+        {
+            Define.IsNightMode = false;
+            layoutImage.color = new Color(1,1,1);
+            layoutClockText.color = new Color(1, 1, 1);
+            layoutLocText.color = new Color(1, 1, 1);
         }
     }
 }

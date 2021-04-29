@@ -11,6 +11,7 @@ public static class Define
     public static bool IsShowcaseAnimOn = true;
     public static bool IsPreloadOn = false;
     public static bool IsColorChange = false;
+    public static bool IsNightMode = false;
     public static string ColorChangeFreq;
     public static string ColorChangeMode;
     public static string ColorSingleMode;
@@ -94,6 +95,7 @@ public class Setting
     public bool isSHowcaseAnimOn = true;
     public bool isPreloadOn = false;
     public bool isColorChange = false;
+    public bool isNightMode = false;
     public string colorChangeFreq = "";
     public string colorChangeMode = "";
     public string colorSingleMode = "";
@@ -108,6 +110,7 @@ public class Setting
             isShowcaseOn = Define.IsShowcaseOn;
             isSHowcaseAnimOn = Define.IsShowcaseAnimOn;
             isColorChange = Define.IsColorChange;
+            isNightMode = Define.IsNightMode;
             colorChangeFreq = Define.ColorChangeFreq;
             colorChangeMode = Define.ColorChangeMode;
             colorSingleMode = Define.ColorSingleMode;
@@ -123,6 +126,7 @@ public class Setting
         Define.IsShowcaseOn = isShowcaseOn;
         Define.IsShowcaseAnimOn = isSHowcaseAnimOn;
         Define.IsColorChange = isColorChange;
+        Define.IsNightMode = isNightMode;
         Define.ColorChangeFreq  = colorChangeFreq;
         Define.ColorChangeMode = colorChangeMode;
         Define.ColorSingleMode = colorSingleMode;
