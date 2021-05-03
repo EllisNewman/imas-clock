@@ -9,8 +9,11 @@ public class LayerAnim : MonoBehaviour
 {
     public GameObject imageAnchor;
     public GameObject imageObject;
-    public GameObject textClockObject;
-    public GameObject textLocObject;
+    public TextMeshProUGUI textFixedClock;
+    public Text textFixedLoc;
+    public TextMeshProUGUI textAnimClock;
+    public TextMeshProUGUI textAnimLoc;
+    public Image layerFixedImage;
     public Showcase showcase;
     public Color currentColor;
 
@@ -80,7 +83,13 @@ public class LayerAnim : MonoBehaviour
 
         currentColor = imageObject.GetComponent<Image>().color;
 
-        // TODO : 夜间模式初始化
+        // 夜间模式初始化
+        if(Define.IsNightMode)
+        {
+            layerFixedImage.color = new Color(30 / 255f, 30 / 255f, 30 / 255f);
+            textAnimClock.color = new Color(30 / 255f, 30 / 255f, 30 / 255f);
+            textAnimLoc.color = new Color(30 / 255f, 30 / 255f, 30 / 255f);
+        }
     }
 
     // 移动图片时反向移动文字，以保持文字居于画面中央
@@ -140,8 +149,8 @@ public class LayerAnim : MonoBehaviour
     {
         currentColor = setColor;
         imageObject.GetComponent<Image>().color = currentColor;
-        textClockObject.GetComponent<TextMeshProUGUI>().color = currentColor;
-        textLocObject.GetComponent<Text>().color = currentColor;
+        textFixedClock.GetComponent<TextMeshProUGUI>().color = currentColor;
+        textFixedLoc.GetComponent<Text>().color = currentColor;
     }
 
     public void ColorChangeClick()

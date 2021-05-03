@@ -573,8 +573,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imageAnchor: {fileID: 2075994872}
   imageObject: {fileID: 858915772}
-  textClockObject: {fileID: 1632492685}
-  textLocObject: {fileID: 848791386}
+  textFixedClock: {fileID: 1632492687}
+  textFixedLoc: {fileID: 848791388}
+  textAnimClock: {fileID: 2078386126}
+  textAnimLoc: {fileID: 1620128056}
+  layerFixedImage: {fileID: 1692123783}
   showcase: {fileID: 349004994}
   currentColor: {r: 0, g: 0, b: 0, a: 0}
   isOptionShowcaseOn: 1
@@ -4076,7 +4079,7 @@ MonoBehaviour:
   scrClockSound: {fileID: 2041483548}
   audioManager: {fileID: 1187883397}
   layoutImage: {fileID: 1692123783}
-  layoutTimeText: {fileID: 2078386126}
+  layoutClockText: {fileID: 2078386126}
   layoutLocText: {fileID: 1620128056}
 --- !u!1 &1030520942
 GameObject:
