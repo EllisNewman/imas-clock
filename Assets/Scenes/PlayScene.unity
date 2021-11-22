@@ -573,6 +573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imageAnchor: {fileID: 2075994872}
   imageObject: {fileID: 858915772}
+  backgroundImageObject: {fileID: 1692123781}
   textFixedClock: {fileID: 1632492687}
   textFixedLoc: {fileID: 848791388}
   textAnimClock: {fileID: 2078386126}
@@ -7778,7 +7779,7 @@ GameObject:
   - component: {fileID: 1692123784}
   - component: {fileID: 1692123783}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BackgroundImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

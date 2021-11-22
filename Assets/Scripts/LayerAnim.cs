@@ -9,6 +9,7 @@ public class LayerAnim : MonoBehaviour
 {
     public GameObject imageAnchor;
     public GameObject imageObject;
+    public GameObject backgroundImageObject;
     public TextMeshProUGUI textFixedClock;
     public Text textFixedLoc;
     public TextMeshProUGUI textAnimClock;
@@ -78,6 +79,7 @@ public class LayerAnim : MonoBehaviour
         
         // 将前景图片的尺寸设为当前屏幕高和宽
         imageObject.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
+        backgroundImageObject.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
         rectTransform = GetComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(Screen.width, Screen.height);
 
